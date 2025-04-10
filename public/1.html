@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的创作空间 - 智界写作</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap">
+    <style>
+        body {
+            background-color: #f6f9ff; 
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(120, 180, 255, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 90% 30%, rgba(167, 139, 250, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(96, 221, 142, 0.1) 0%, transparent 35%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 249, 255, 0.8) 100%);
+            background-attachment: fixed;
+            font-family: 'Noto Sans SC', sans-serif;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* 玻璃质感效果 */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .glass-dark {
+            background: rgba(30, 41, 72, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 光泽效果 */
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+        
+        /* 质感阴影 */
+        .shadow-soft {
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.05),
+                0 1px 3px rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .shadow-soft-hover {
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.1),
+                0 3px 10px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .shadow-fab {
+            box-shadow: 
+                0 10px 25px rgba(249, 115, 22, 0.3),
+                0 5px 15px rgba(249, 115, 22, 0.1);
+        }
+        
+        .shadow-fab-hover {
+            box-shadow: 
+                0 15px 35px rgba(249, 115, 22, 0.4),
+                0 8px 20px rgba(249, 115, 22, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* 装饰图案 */
+        .pattern-dots {
+            position: relative;
+        }
+        
+        .pattern-dots::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(66, 133, 244, 0.08) 1px, transparent 1px),
+                radial-gradient(rgba(66, 133, 244, 0.06) 1px, transparent 1px);
+            background-size: 20px 20px, 40px 40px;
+            background-position: 0 0, 10px 10px;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* 渐变背景 */
+        .gradient-bg {
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(120deg, #1d976c 0%, #38ef7d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen font-sans antialiased text-gray-800">
+
+    <!-- Sidebar -->
+    <aside class="w-72 glass-dark flex flex-col flex-shrink-0 relative z-10">
+        <!-- Logo/Brand -->
+        <div class="h-20 flex items-center px-8 border-b border-slate-700/30 flex-shrink-0">
+            <div class="bg-gradient-to-r from-cyan-400 to-teal-400 rounded-xl p-2.5 flex items-center justify-center mr-3.5 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path></svg>
+            </div>
+            <span class="text-xl font-bold text-white">智界写作</span>
+        </div>
+        <!-- Navigation -->
+        <nav class="flex-1 py-6 px-6 space-y-2.5 overflow-y-auto">
+            <a href="#" class="flex items-center px-4 py-3.5 bg-white/10 text-white text-base font-medium rounded-xl group shine">
+                <svg class="w-6 h-6 mr-4 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                小说创作
+            </a>
+            <a href="#" class="flex items-center px-4 py-3.5 text-slate-300 hover:bg-white/10 hover:text-white text-base font-medium rounded-xl group transition-colors duration-200">
+                <svg class="w-6 h-6 mr-4 text-slate-400 group-hover:text-teal-300 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                角色设计
+            </a>
+        </nav>
+        <!-- Sidebar Footer -->
+        <div class="px-6 py-6 border-t border-slate-700/30 flex-shrink-0">
+            <button class="p-3 text-slate-400 hover:text-teal-300 rounded-lg transition-colors duration-200">
+                <span class="sr-only">功能</span>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Bar -->
+        <header class="h-20 glass flex items-center justify-end px-10 sticky top-0 z-10 flex-shrink-0">
+            <a href="#" class="text-base font-medium text-emerald-600 mr-8">创作空间</a>
+            <a href="#" class="text-base text-gray-500 hover:text-gray-800 transition-colors duration-200">我的作品</a>
+        </header>
+
+        <!-- Content Area -->
+        <div class="flex-1 p-10 overflow-y-auto pattern-dots">
+            <h1 class="text-3xl font-bold text-gray-800 mb-10 gradient-text">我的创作空间</h1>
+
+            <!-- Container for the cards -->
+            <div class="flex flex-wrap gap-10">
+
+                <!-- Card 1: Create New -->
+                <div class="glass shine rounded-2xl p-8 shadow-soft hover:shadow-soft-hover transition-all duration-300 cursor-pointer w-96 h-72 flex flex-col items-center justify-center text-center">
+                    <div class="relative mb-6 float">
+                        <button class="relative w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 via-emerald-500 to-green-500 flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                        <!-- Yellow Badge -->
+                        <span class="absolute top-0 right-0 block h-5 w-5 rounded-full bg-gradient-to-r from-yellow-300 to-yellow-500 transform translate-x-1 -translate-y-1 ring-4 ring-white"></span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">创建新作品</h3>
+                    <p class="text-base text-gray-600 leading-relaxed px-4">开启你的夏日创作之旅，记录灵感与故事</p>
+                </div>
+
+                <!-- Card 2: Template Center -->
+                <div class="glass shine rounded-2xl p-8 shadow-soft hover:shadow-soft-hover transition-all duration-300 relative w-96 h-72 flex flex-col justify-between">
+                    <div>
+                        <div class="mb-4">
+                            <svg class="w-9 h-9 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">模板中心</h3>
+                        <h4 class="text-base font-medium text-emerald-600 mb-3">探索创作模板</h4>
+                        <p class="text-base text-gray-600 leading-relaxed">使用专业模板快速开始你的创作</p>
+                    </div>
+                    <a href="#" class="absolute bottom-8 right-8 group">
+                        <svg class="w-7 h-7 text-emerald-500 group-hover:text-emerald-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+                <!-- 新增: 创作灵感卡片 -->
+                <div class="glass shine rounded-2xl p-8 shadow-soft hover:shadow-soft-hover transition-all duration-300 relative w-96 h-72 flex flex-col justify-between">
+                    <div>
+                        <div class="mb-4">
+                            <svg class="w-9 h-9 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">灵感收集</h3>
+                        <h4 class="text-base font-medium text-purple-500 mb-3">捕捉创意火花</h4>
+                        <p class="text-base text-gray-600 leading-relaxed">收集并整理你的创作灵感和想法</p>
+                    </div>
+                    <a href="#" class="absolute bottom-8 right-8 group">
+                        <svg class="w-7 h-7 text-purple-500 group-hover:text-purple-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <button class="fixed bottom-10 right-10 bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white px-6 py-3.5 rounded-xl shadow-fab hover:shadow-fab-hover flex items-center text-base font-medium transition-all duration-300 z-20">
+            <svg class="w-5 h-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 15l2.846-.813a4.5 4.5 0 003.09-3.09L9 7.25l.813 2.846a4.5 4.5 0 003.09 3.09L15 15l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.25 7.5l.813 2.846a4.5 4.5 0 013.09 3.09L24.75 15l-2.846.813a4.5 4.5 0 01-3.09 3.09L18.25 21l-.813-2.846a4.5 4.5 0 01-3.09-3.09L12.75 15l2.846-.813a4.5 4.5 0 013.09-3.09L18.25 7.5z" />
+            </svg>
+            创作助手
+        </button>
+
+    </main>
+
+</body>
+</html>
